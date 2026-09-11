@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          if grep -RInE --exclude-dir=.git --exclude='bun.lockb' '(ethereum/eip-review-bot|\beip-review-bot\b|\bEIP Review Bot\b)' .; then
+          if grep -RInE --exclude-dir=.git --exclude='bun.lockb' --exclude='latest-sip-review-bot-sync.yml' '(ethereum/eip-review-bot|\beip-review-bot\b|\bEIP Review Bot\b)' .; then
             echo 'ACTIONABLE_IDENTITY_RESIDUAL_COUNT=NONZERO'
             exit 1
           fi
@@ -47,13 +47,11 @@ jobs:
         run: bun run test
       - name: Publish generated branch
         shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           rm .github/workflows/latest-sip-review-bot-sync.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add src/action.ts
           git rm --cached .github/workflows/latest-sip-review-bot-sync.yml || true
-          git commit -m 'sync: latest EIP Review Bot authority 4d5a3c26'
+          git commit -m 'sync: latest SIP Review Bot authority 4d5a3c26'
           git push --force origin HEAD:refs/heads/sila/generated-eip-review-bot-4d5a3c26
