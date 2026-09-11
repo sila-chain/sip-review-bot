@@ -1,0 +1,16 @@
+{
+    "extends": "@tsconfig/recommended/tsconfig.json",
+    "compilerOptions": {
+        "target": "es2021",
+        "module": "preserve",
+        "rootDir": "./src",
+        "strict": true,
+        "alwaysStrict": true,
+        "moduleResolution": "bundler",
+        "esModuleInterop": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "types": ["node", "jest"]
+    },
+    "exclude": ["node_modules"]
+}

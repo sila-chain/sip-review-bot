@@ -1,0 +1,59 @@
+{
+    "name": "sip-review-bot",
+    "version": "0.0.1",
+    "description": "Request reviewers for SIP modifications",
+    "main": "dist/index.js",
+    "type": "module",
+    "scripts": {
+        "fmt": "prettier --write .",
+        "build": "esbuild src/action.ts --bundle --platform=node --target=node24 --outfile=dist/index.js && echo { \\\"type\\\": \\\"commonjs\\\" } > dist/package.json",
+        "test": "tsc --noEmit && prettier --check . && eslint --config .eslintrc.cjs . && jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sila-chain/sip-review-bot.git"
+    },
+    "author": "Pandapip1",
+    "license": "CC0-1.0",
+    "bugs": {
+        "url": "https://github.com/sila-chain/sip-review-bot/issues"
+    },
+    "homepage": "https://github.com/sila-chain/sip-review-bot",
+    "devDependencies": {
+        "@actions/core": "3.0.1",
+        "@actions/github": "9.1.1",
+        "@eslint/js": "10.0.1",
+        "@trivago/prettier-plugin-sort-imports": "6.0.2",
+        "@tsconfig/recommended": "1.0.13",
+        "@types/js-yaml": "4.0.9",
+        "@typescript-eslint/eslint-plugin": "8.67.0",
+        "@typescript-eslint/parser": "8.67.0",
+        "eslint": "10.8.1",
+        "eslint-config-prettier": "10.1.8",
+        "prettier": "3.9.6"
+    },
+    "dependencies": {
+        "@octokit/fixtures": "23.1.2",
+        "@octokit/plugin-throttling": "11.0.5",
+        "@octokit/rest": "22.0.1",
+        "@octokit/webhooks-types": "7.6.1",
+        "@types/jest": "30.0.0",
+        "@types/node": "24.13.3",
+        "before-after-hook": "4.0.0",
+        "bottleneck": "2.19.5",
+        "encoding": "0.1.13",
+        "esbuild": "0.28.2",
+        "front-matter": "4.0.2",
+        "isomorphic-git": "1.41.3",
+        "jest": "30.4.2",
+        "js-yaml": "5.2.3",
+        "nock": "14.0.17",
+        "once": "1.4.0",
+        "tr46": "6.0.0",
+        "ts-jest": "29.4.12",
+        "tunnel": "0.0.6",
+        "typescript": "6.0.3",
+        "wrappy": "1.0.2",
+        "yaml": "2.9.0"
+    }
+}

@@ -1,0 +1,81 @@
+import * as core from "@actions/core";
+
+export declare type File = {
+    sha?: string;
+    status:
+        | "removed"
+        | "modified"
+        | "renamed"
+        | "added"
+        | "copied"
+        | "changed"
+        | "unchanged";
+    filename: string;
+    previous_filename?: string | undefined;
+    contents?: string | undefined;
+    previous_contents?: string | undefined;
+};
+
+export declare type Octokit = ReturnType<
+    typeof import("@actions/github").getOctokit
+>;
+
+export declare type RestPullRequest = Awaited<
+    ReturnType<Octokit["rest"]["pulls"]["get"]>
+>["data"];
+
+export declare type PullRequestData =
+    import("@octokit/webhooks-types").PullRequest | RestPullRequest;
+
+export declare type Rule = {
+    /**
+     * The name of the rule
+     */
+    name: string;
+
+    /**
+     * The list of GitHub usernames (case insensitive) that are needed to satisfy the rule
+     */
+    reviewers: string[];
+
+    /**
+     * The minumum number of reviewers needed to satisfy the rule
+     */
+    min: number;
+
+    /**
+     * The annotation to be displayed on the PR if the rule is not satisfied
+     */
+    annotation: core.AnnotationProperties;
+
+    /**
+     * Whether the PR author approves the PR by default
+     */
+    pr_approval?: boolean | undefined;
+
+    /**
+     * Whether reviewers should be @mentioned in PR comments (default: false)
+     */
+    mention_reviewers?: boolean | undefined;
+
+    /**
+     * The labels to add to the PR if the rule is not satisfied, or remove if the rule is satisfied
+     */
+    labels?: string[] | undefined;
+
+    /**
+     * The labels to not add the PR if the rule is not satisfied
+     */
+    exclude_labels?: string[] | undefined;
+};
+export declare type RuleProcessed = Rule & { label_min: number };
+export declare type RuleGenerator = (
+    octokit: Octokit,
+    config: Config,
+    files: File[],
+) => Promise<Rule[]>;
+export declare type Config = { [key: string]: string[] };
+export declare type FrontMatter = {
+    "last-call-deadline": Date;
+    created: Date;
+} & { [key: string]: string };
